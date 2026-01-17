@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0",
+  "templates": [
+    {
+      "id": "pink_fur",
+      "name": "粉色毛绒",
+      "folder": "粉色毛绒",
+      "sort": 1
+    }
+  ]
+}
