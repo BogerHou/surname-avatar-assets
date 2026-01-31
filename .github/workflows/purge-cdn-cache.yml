@@ -1,7 +1,7 @@
-# 自动清理 jsDelivr CDN 缓存
+# 自动清理 CDN 缓存
 # 每次 push 到 main 分支后自动执行
 
-name: Purge jsDelivr Cache
+name: Purge CDN Cache
 
 on:
   push:
@@ -12,15 +12,19 @@ jobs:
   purge:
     runs-on: ubuntu-latest
     steps:
-      - name: Purge jsDelivr CDN Cache
+      - name: Purge CDN Cache
         run: |
-          echo "🧹 开始清理 jsDelivr 缓存..."
+          echo "🧹 开始清理 CDN 缓存..."
           
-          # 清理 config.json 缓存
-          echo "📄 清理 config.json..."
+          # 清理 jsDelivr 缓存
+          echo "📄 清理 jsDelivr config.json..."
           curl -s "https://purge.jsdelivr.net/gh/BogerHou/surname-avatar-assets@main/config.json" | jq .
           
-          # 清理模板封面目录（常用文件）
+          # 清理 jsdmirror 缓存（国内镜像）
+          echo "📄 清理 jsdmirror config.json..."
+          curl -s "https://purge.jsdmirror.com/gh/BogerHou/surname-avatar-assets@main/config.json" || echo "jsdmirror purge 可能不支持，跳过"
+          
+          # 清理模板封面目录（jsDelivr）
           echo "🖼️ 清理模板封面..."
           curl -s "https://purge.jsdelivr.net/gh/BogerHou/surname-avatar-assets@main/模板封面/粉色毛绒.jpg" > /dev/null
           curl -s "https://purge.jsdelivr.net/gh/BogerHou/surname-avatar-assets@main/模板封面/新年剪纸.jpg" > /dev/null
